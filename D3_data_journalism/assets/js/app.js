@@ -156,24 +156,24 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .attr("opacity", ".5");
 
     // Create group for x-axis labels
-    var labelsGroup = chartGroup.append("g")
+    var xLabelsGroup = chartGroup.append("g")
         .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + 20})`);
     
-    var povertyLabel = labelsGroup.append("text")
+    var povertyLabel = xLabelsGroup.append("text")
         .attr("x", 0)
         .attr("y", 20)
         .attr("value", "poverty") // Value to grab for event listener
         .classed("active", true) // Active and initial parameter
         .text("In Poverty (%)");
 
-    var ageLabel = labelsGroup.append("text")
+    var ageLabel = xLabelsGroup.append("text")
         .attr("x", 0)
         .attr("y", 40)
         .attr("value", "age") // Value to grab for event listener
         .classed("inactive", true)
         .text("Age (Median)");
 
-      var incomeLabel = labelsGroup.append("text")
+      var incomeLabel = xLabelsGroup.append("text")
         .attr("x", 0)
         .attr("y", 60)
         .attr("value", "income") // Value to grab for event listener
@@ -189,13 +189,29 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .classed("axis-text", true)
         .text("Lacks Healthcare (%)")
 
+        chartGroup.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - chartMargin.left)
+        .attr("x", 0 - (chartHeight / 2))
+        .attr("dy", "1em")
+        .classed("axis-text", true)
+        .text("Lacks Healthcare (%)")
+
+        chartGroup.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - chartMargin.left)
+        .attr("x", 0 - (chartHeight / 2))
+        .attr("dy", "1em")
+        .classed("axis-text", true)
+        .text("Lacks Healthcare (%)")
+
     var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
     
     // chartGroup.call(toolTip);
 
     // x axis labels event listener
-    labelsGroup.selectAll("text")
+    xLabelsGroup.selectAll("text")
       .on("click", function(){
           var value = d3.select(this).attr("value");
           if (value !== chosenXAxis) {
@@ -220,17 +236,34 @@ d3.csv("assets/data/data.csv").then(function(raw) {
                 ageLabel
                     .classed("active", false)
                     .classed ("inactive", true)
+                incomeLabel
+                    .classed("active", false)
+                    .classed ("inactive", true)
             }
             else if (chosenXAxis === "age") {
-                ageLabel
-                    .classed("active", true)
-                    .classed ("inactive", false)
                 povertyLabel
                     .classed("active", false)
                     .classed("inactive", true)
+                ageLabel
+                    .classed("active", true)
+                    .classed ("inactive", false)
+                incomeLabel
+                    .classed("active", false)
+                    .classed ("inactive", true)
+            }
+            else if (chosenXAxis === "income") {
+                povertyLabel
+                    .classed("active", false)
+                    .classed("inactive", true)
+                ageLabel
+                    .classed("active", false)
+                    .classed ("inactive", true)
+                incomeLabel
+                    .classed("active", true)
+                    .classed ("inactive", false)
             }
           }
-      });
+        })
 
 
   
