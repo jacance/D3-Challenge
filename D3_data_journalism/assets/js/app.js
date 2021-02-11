@@ -6,7 +6,7 @@ var svgHeight = 660;
 var chartMargin = {
   top: 20,
   right: 40,
-  bottom: 60,
+  bottom: 75,
   left: 100
 };
 
@@ -81,7 +81,7 @@ function updateToolTip(chosenXAxis, circlesGroup) {
     if (chosenXAxis === "poverty") {
       label = "Poverty:";
     }
-    else {
+    else if (chosenXAxis === "age") {
       label = "Age";
     }
 
@@ -163,7 +163,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
     var ageLabel = labelsGroup.append("text")
         .attr("x", 0)
         .attr("y", 40)
-        .attr("value", "age)") // Value to grab for event listener
+        .attr("value", "age") // Value to grab for event listener
         .classed("inactive", true)
         .text("Age (Median)");
 
