@@ -6,7 +6,7 @@ var svgHeight = 660;
 var chartMargin = {
   top: 20,
   right: 40,
-  bottom: 75,
+  bottom: 90,
   left: 100
 };
 
@@ -35,7 +35,7 @@ var chosenYAxis = "healthcare"
 function xScale(data, chosenXAxis) {
     var xLinearScale = d3.scaleLinear()
       .domain([d3.min(data, d => d[chosenXAxis]) *.8,
-        d3.max(data, d => d[chosenXAxis]) * 1.1
+        d3.max(data, d => d[chosenXAxis]) * 1.2
       ])
       .range([0, chartWidth]);
   
@@ -68,6 +68,8 @@ function renderCircles(circlesGroup, newXScale, chosenXAxis) {
     circlesGroup.transition()
       .duration(1000)
       .attr("cx", d => newXScale(d[chosenXAxis]));
+    
+    console.log(circlesGroup)
   
     return circlesGroup;
   }
@@ -82,7 +84,10 @@ function updateToolTip(chosenXAxis, circlesGroup) {
       label = "Poverty:";
     }
     else if (chosenXAxis === "age") {
-      label = "Age";
+      label = "Age:";
+    }
+    else if (chosenXAxis === "income") {
+      label = "Household Income (Median):";
     }
 
     var toolTip = d3.tip()
@@ -115,6 +120,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
     raw.forEach(function(data) {
         data.poverty = +data.poverty;
         data.healthcare = +data.healthcare;
+        data.age = +data.age
       });
     
     // xLinearScale function above csv import
@@ -149,7 +155,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .attr("fill", "pink")
         .attr("opacity", ".5");
 
-    // Create group for two x-axis labels
+    // Create group for x-axis labels
     var labelsGroup = chartGroup.append("g")
         .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + 20})`);
     
@@ -166,6 +172,13 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .attr("value", "age") // Value to grab for event listener
         .classed("inactive", true)
         .text("Age (Median)");
+
+      var incomeLabel = labelsGroup.append("text")
+        .attr("x", 0)
+        .attr("y", 60)
+        .attr("value", "income") // Value to grab for event listener
+        .classed("inactive", true)
+        .text("Household Income (Median)");
 
     // Append y axis
     chartGroup.append("text")
@@ -193,7 +206,12 @@ d3.csv("assets/data/data.csv").then(function(raw) {
 
             xAxis = renderAxes(xLinearScale, xAxis);
 
+            circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
+
             circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+
+
+            
 
             if (chosenXAxis === "poverty") {
                 povertyLabel
@@ -214,32 +232,6 @@ d3.csv("assets/data/data.csv").then(function(raw) {
           }
       });
 
-
-
-
-    // circlesGroup.on("click", function(data) {
-    //     toolTip.show(data, this);
-    //   })
-    //     // onmouseout event
-    //     .on("mouseout", function(data, index) {
-    //       toolTip.hide(data);
-    //     });
-
-
-
-    // // Create axes labels
-    // chartGroup.append("text")
-    //     .attr("transform", "rotate(-90)")
-    //     .attr("y", 0 - margin.left + 40)
-    //     .attr("x", 0 - (height / 2))
-    //     .attr("dy", "16px")
-    //     .attr("class", "axisText")
-    //     .text("Lacks Healthcare (%)");
-  
-    // chartGroup.append("text")
-    //     .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
-    //     .attr("class", "axisText")
-    //     .text("In Poverty (%)");
 
   
 }).catch(function(error) {
