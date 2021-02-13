@@ -35,7 +35,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
 
     raw.forEach(function(data) {
         data.poverty = +data.poverty;
-        data.healthcare = +data.healthcare;
+        data.smokes = +data.smokes;
       });
     
     // xLinearScale function above csv import
@@ -47,7 +47,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
     
     // Create y scale function
     var yLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(raw, d => d.healthcare) + 2])
+        .domain([0, d3.max(raw, d => d.smokes) + 2])
         .range([chartHeight, 0]);
     
     // Create ticks and markers along axis
@@ -65,7 +65,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .attr("x", 0)
         .attr("y", 20)
         .attr("class", "aText")
-        .text("In Poverty (%)")
+        .text("In poverty (%)")
     
     // Append y axis
     chartGroup.append("g")
@@ -78,7 +78,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .attr("x", 0 - (chartHeight / 2))
         .attr("dy", "1em")
         .attr("class", "aText")
-        .text("Lacks Healthcare (%)")
+        .text("Lacks smokes (%)")
 
     // Append circles
     var circlesGroup = chartGroup.selectAll("circle")
@@ -86,7 +86,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .enter()
         .append("circle")
         .attr("cx", d => xLinearScale(d.poverty))
-        .attr("cy", d => yLinearScale(d.healthcare))
+        .attr("cy", d => yLinearScale(d.smokes))
         .attr("r", 15)
         .attr("fill", "lightblue")
         .attr("opacity", ".8");
@@ -97,7 +97,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .enter()
         .append("text")
         .attr("x", d => xLinearScale(d.poverty))
-        .attr("y", d => yLinearScale(d.healthcare))
+        .attr("y", d => yLinearScale(d.smokes))
         .text(d => d.abbr)
         .attr("font-size", "10")
         .style("fill", "black") //instead of attr, use style
