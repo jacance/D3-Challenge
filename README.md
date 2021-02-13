@@ -1,6 +1,6 @@
 # Data Journalism and D3
 
-![Newsroom](https://media.giphy.com/media/v2xIous7mnEYg/giphy.gif)
+![Newsroom](images/newsroom.gif)
 
 ## Background
 
@@ -15,7 +15,7 @@ The data set is based on 2014 ACS 1-year estimates from the [US Census Bureau](h
 
 ### Core Assignment:
 
-![4-scatter](Images/4-scatter.jpg)
+![4-scatter](images/scatter.png)
 
 Create a scatter plot between two of the data variables. This project analyzes `Poverty vs. Smokers`.
 
