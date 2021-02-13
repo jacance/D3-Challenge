@@ -144,13 +144,14 @@ d3.csv("assets/data/data.csv").then(function(raw) {
     chartGroup.append("g")
         .call(leftAxis);
 
+        // Append state abbreviations to circles
         var circlesGroup = chartGroup.selectAll("circle")
         .data(raw)
         .enter()
         .append("circle")
         .attr("cx", d => xLinearScale(d[chosenXAxis]))
         .attr("cy", d => yLinearScale(d.healthcare))
-        .attr("r", 20)
+        .attr("r", 15)
         .attr("fill", "lightblue")
         .attr("opacity", ".8");
 
@@ -189,7 +190,8 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .classed("axis-text", true)
         .text("Lacks Healthcare (%)")
 
-        chartGroup.append("text")
+    
+    chartGroup.append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", 0 - chartMargin.left)
         .attr("x", 0 - (chartHeight / 2))
@@ -197,7 +199,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .classed("axis-text", true)
         .text("Lacks Healthcare (%)")
 
-        chartGroup.append("text")
+    chartGroup.append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", 0 - chartMargin.left)
         .attr("x", 0 - (chartHeight / 2))
@@ -228,7 +230,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
 
 
             
-
+            // Conditions to set active label on click
             if (chosenXAxis === "poverty") {
                 povertyLabel
                     .classed("active", true)

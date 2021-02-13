@@ -5,8 +5,8 @@ var svgHeight = 650;
 // Define the chart's margins as an object
 var chartMargin = {
   top: 20,
-  right: 60,
-  bottom: 90,
+  right: 20,
+  bottom: 60,
   left: 60
 };
 
@@ -31,8 +31,8 @@ var chartGroup = svg.append("g")
 d3.csv("assets/data/data.csv").then(function(raw) {
   console.log(raw);
 
-    // Step 1: Parse Data/Cast as numbers
-    // ==============================
+    // Parse Data/Cast as numbers
+
     raw.forEach(function(data) {
         data.poverty = +data.poverty;
         data.healthcare = +data.healthcare;
@@ -80,17 +80,18 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .attr("class", "aText")
         .text("Lacks Healthcare (%)")
 
-
+    // Append circles
     var circlesGroup = chartGroup.selectAll("circle")
         .data(raw)
         .enter()
         .append("circle")
         .attr("cx", d => xLinearScale(d.poverty))
         .attr("cy", d => yLinearScale(d.healthcare))
-        .attr("r", 20)
+        .attr("r", 15)
         .attr("fill", "lightblue")
         .attr("opacity", ".8");
 
+    // Append state abbreviations to circles
     chartGroup.selectAll()
         .data(raw)
         .enter()
@@ -98,7 +99,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .attr("x", d => xLinearScale(d.poverty))
         .attr("y", d => yLinearScale(d.healthcare))
         .text(d => d.abbr)
-        .attr("font-size", "12")
+        .attr("font-size", "10")
         .style("fill", "black") //instead of attr, use style
         .classed("stateText", true)
         .attr("opacity", 0.75);
