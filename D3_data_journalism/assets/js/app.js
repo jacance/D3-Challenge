@@ -65,7 +65,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .attr("x", 0)
         .attr("y", 20)
         .attr("class", "aText")
-        .text("In poverty (%)")
+        .text("In Poverty (%)")
     
     // Append y axis
     chartGroup.append("g")
@@ -78,7 +78,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .attr("x", 0 - (chartHeight / 2))
         .attr("dy", "1em")
         .attr("class", "aText")
-        .text("Lacks smokes (%)")
+        .text("Smokes (%)")
 
     // Append circles
     var circlesGroup = chartGroup.selectAll("circle")
@@ -100,7 +100,7 @@ d3.csv("assets/data/data.csv").then(function(raw) {
         .attr("y", d => yLinearScale(d.smokes))
         .text(d => d.abbr)
         .attr("font-size", "10")
-        .style("fill", "black") //instead of attr, use style
+        .style("fill", "black")
         .classed("stateText", true)
         .attr("opacity", 0.75);
    

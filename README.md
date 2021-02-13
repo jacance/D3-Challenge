@@ -49,7 +49,7 @@ Implement D3 graphics to reveal a specific element's data when the user hovers t
 
 * SVG
 
-*JavaScript
+* JavaScript
 
 * HTML
 
