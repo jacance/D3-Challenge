@@ -91,7 +91,7 @@ function updateToolTip(chosenXAxis, circlesGroup) {
     }
 
     var toolTip = d3.tip()
-        .attr("class", "tooltip")
+        .attr("class", "d3-tip")
         .offset([80, -60])
         .html(function(d) {
             return (`${d.state}<br>${label}${d[chosenXAxis]}<br>Lacks Healthcare (%): ${d.healthcare}`);
